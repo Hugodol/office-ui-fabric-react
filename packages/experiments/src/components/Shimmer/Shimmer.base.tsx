@@ -1,8 +1,6 @@
 import * as React from 'react';
-import {
-  BaseComponent,
-  classNamesFunction,
-} from '../../Utilities';
+import { BaseComponent, classNamesFunction } from '../../Utilities';
+import { DefaultPalette, IStyleSet } from '../../Styling';
 import {
   IShimmerProps,
   IShimmerStyleProps,
@@ -13,10 +11,6 @@ import {
   IGap,
   ShimmerElementVerticalAlign,
 } from './Shimmer.types';
-import {
-  DefaultPalette,
-  IStyleSet
-} from '../../Styling';
 import { ShimmerLine } from './ShimmerLine/ShimmerLine';
 import { ShimmerGap } from './ShimmerGap/ShimmerGap';
 import { ShimmerCircle } from './ShimmerCircle/ShimmerCircle';
@@ -38,11 +32,22 @@ export class ShimmerBase extends BaseComponent<IShimmerProps, {}> {
   }
 
   public render(): JSX.Element {
-    const { getStyles, width, lineElements, children, isDataLoaded, isBaseStyle } = this.props;
+    const {
+      getStyles,
+      width,
+      lineElements,
+      children,
+      isDataLoaded,
+      isBaseStyle,
+      widthInPercentage,
+      widthInPixel
+    } = this.props;
 
     const rowHeight: number | undefined = lineElements ? findMaxElementHeight(lineElements) : undefined;
 
-    this._classNames = getClassNames(getStyles!, { width, rowHeight, isDataLoaded, isBaseStyle });
+    this._classNames = getClassNames(getStyles!, {
+      width, rowHeight, isDataLoaded, isBaseStyle, widthInPercentage, widthInPixel
+    });
 
     const renderedElements: React.ReactNode = getRenderedElements(lineElements, rowHeight);
 
